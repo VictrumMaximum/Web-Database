@@ -1,0 +1,207 @@
+body {
+	overflow: hidden;
+	margin: 0;
+	font-family: Verdana, Geneva, sans-serif;
+}
+
+hr {
+	margin-left: 8px;
+	margin-right: 8px
+}
+
+div button{
+	border-radius: 5px;
+}
+
+button {
+	background-color: white;
+	border: 1px solid black;
+}
+
+button:hover {
+	background-color: #008000;
+	color: white;
+	border: 0;
+}
+
+input {
+	border-radius: 5px;
+	padding: 5px;
+}
+
+input:focus {
+	outline: none;
+	border-radius: 5px;
+}
+
+.content {
+	height: 100vh;
+}
+
+.create-todo {
+	padding-top: 50px;
+	padding-left: 10px;
+}
+
+.creator {
+	width: 20em;
+	border-radius: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 10px;
+	padding-bottom: 50px;
+	//background: linear-gradient(to right, #00d2ff, #3a7b11);
+	
+	box-shadow: 0 0 1px 1px #33ff33;
+}
+
+h1 {
+	padding: 10px;
+}
+
+#todo-form {
+	padding: 10px;
+	width: 100%;
+}
+
+.create-button {
+	margin-top: 10px;
+	height: 4em;
+	width: 8em;
+}
+
+.view-todo {
+	position: fixed;
+	top: 7em;
+	left: 25em;
+	width: 50vw;
+}
+
+@media only screen and (min-width: 65em) {
+		.view-todo {
+			width: 60vw;
+		}
+}
+
+@media only screen and (min-width: 85em) {
+		.view-todo {
+			width: 70vw;
+		}
+}
+
+.viewer {
+	
+}
+
+.sort-buttons {
+	margin-left: 20px;
+}
+
+.sort-button {
+	height: 2em;
+	padding-left: 12px;
+	padding-right: 12px;
+	margin-left: 2px;
+	margin-right: 2px;
+}
+
+.todo-list {
+	margin-top: 10px;
+	max-height: 75vh;
+	overflow: auto;
+}
+
+#empty-list {
+	display: block;
+	margin-top: 20px;
+	margin-left: 20px;
+}
+
+.todo-item {
+	padding: 10px;
+	padding-left: 20px;
+}
+
+.item-button {
+	height: 2em;
+	padding-left: 8px;
+	padding-right: 8px;
+	margin-left: 2px;
+	margin-right: 2px;
+}
+
+.todo-content {
+	border: 1px solid black;
+	margin: 5px 5px 5px 0;
+	background: rgba(51, 255, 51, 0.5);
+	padding: 5px 0 5px 0;
+}
+
+p {
+	margin: 0;
+	word-wrap: break-word;
+}
+
+p.todo-name {
+	display: inline-block;
+	padding-left: 10px;
+}
+
+p.todo-desc {
+	padding-left: 10px;
+}
+
+p.todo-date {
+	display: inline-block;
+	float:right;
+	margin-right: 10px;
+}
+
+p.todo-rating {
+	padding-left: 10px;
+}
+
+#todo-name {
+	width: 90%;
+	height: 20px;
+}
+
+#todo-desc {
+	width: 90%;
+	height: 40px;
+}
+
+#todo-day {
+	width: 15%;
+	height: 20px;
+}
+
+#todo-month {
+	width: 30%;
+	height: 20px;
+}
+
+#todo-year {
+	width: 30%;
+	height: 20px;
+}
+
+#remind-day {
+	width: 15%;
+	height: 20px;
+}
+
+#remind-month {
+	width: 30%;
+	height: 20px;
+}
+
+#remind-year {
+	width: 30%;
+	height: 20px;
+}
+
+#remind-toggle {
+	
+}
+

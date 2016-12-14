@@ -1,0 +1,92 @@
+/*div.wrapper {
+	font-size: 100%;
+}
+
+hr {
+	clear: both;
+}
+
+div.top-bar p {
+	float: left;
+	margin: auto;
+	font-size: 1.5em;
+}
+
+div.top-bar a:link, a:visited {
+	text-decoration: none;
+	font-size: 1.2em;
+	color: black;
+}
+
+div.top-bar a:hover {
+	text-decoration: underline;
+}
+
+div.top-bar a:active {
+	text-decoration: none;
+	border: solid black;
+}
+
+div.top-bar img {
+	float: right;
+	margin: auto;
+}
+*/
+
+body {
+	font-family: Verdana, Geneva, sans-serif;
+}
+
+div.titles h1 {
+	position: relative;
+	top: 5px;
+	font-size: 6.5em;
+	text-align: center;
+}
+
+div.titles h3 {
+	font-size: 2.5em;
+	text-align: center;
+}
+
+.sign-button {
+	/*
+	background-color: #4CAF50; 
+    border: none;
+    color: white;
+    padding: 20px 48px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 3.5em;
+    position: relative;
+    top: 50%;
+    left: 40%;
+    */
+    /* animate button */
+    background-color: #4CAF50; 
+    border: none;
+    border-radius:15px;
+  	box-shadow: 30px 30px 30px #999;
+    padding: 20px 48px;
+    text-align: center;
+    outline: none;
+    display: inline-block; 
+    font-size: 3.5em;
+    position: relative;
+    top: 50%;
+    left: 40%;
+	text-decoration: none;
+	color: white;
+
+}
+
+.sign-button:hover {
+	background-color: #3e8e41
+}
+
+.sign-button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(12px);
+}
