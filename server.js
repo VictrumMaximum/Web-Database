@@ -1,7 +1,17 @@
 var express = require("express");
 var http = require("http");
+var mysql = require("mysql");
 var port = 3000;
 var app = express();
+
+var connection = mysql.createConnection({
+	host : "localhost",
+	user : "root",
+	password : "webdata",
+	database : "todo"
+});
+
+connection.connect();
 
 var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false}));
