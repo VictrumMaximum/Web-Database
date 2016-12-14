@@ -12,6 +12,7 @@ var connection = mysql.createConnection({
 });
 
 connection.connect();
+//test
 
 var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false}));
