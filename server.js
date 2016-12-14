@@ -1,3 +1,11 @@
+/*
+	To add myuser:
+	INSERT INTO User(Id, Name, Email, Username, Password) VALUES ("myuser", "myuser@to.do", "myuser", "mypass");
+
+	To add Mylist:
+	INSERT INTO ToDoList(Name, CreationDate, Owner, IsPublic) VALUES ("MyList", "2016-01-01 00:00:00", "3", "0");
+*/
+
 var express = require("express");
 var http = require("http");
 var mysql = require("mysql");
@@ -11,8 +19,6 @@ var connection = mysql.createConnection({
 	database : "todo"
 });
 
-connection.connect();
-//test
 
 var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false}));
@@ -27,25 +33,59 @@ app.get("/todo", function(req, res) {
 });
 
 app.get("/testdb", function(req, res) {
-	/*
-		To add myuser:
-		INSERT INTO User(Id, Name, Email, Username, Password) VALUES ("3", "myuser", "myuser@to.do", "myuser", "mypass");
-
-		To add mylist:
-		INSERT INTO ToDoList(Id, Name, CreationDate, Owner, IsPublic) VALUES ("5", "MyList", "2016-01-01 00:00:00", "3", "0");
-	*/
+	connection.connect();
 
 	var id = req.query.id;
-	console.log(id);
-	connection.query("SELECT * FROM User WHERE Id="+id, function(err, rows, fields) {
+
+	connection.query("SELECT Title, Text, DueDate, Completed, Priority"
+		+ " FROM ToDoItem JOIN ToDoList ON ToDoItem.ToDoListID=ToDoList.Id"
+		+ " WHERE ToDoList.Owner="+id, function(err, rows, fields) {
 		if (err) {
 			console.log(err);
 		}
 		else {
-			console.log(rows);
+			//console.log(rows);
 			res.json({'rows' : JSON.stringify(rows)});
 		}
 	});
+	connection.end();
+});
+
+app.post("/add-db", function(req, res) {
+	connection.connect();
+
+	var id = req.body.id;
+
+	connection.query("SELECT Id"
+		+ " FROM ToDoList"
+		+ " WHERE ToDoList.Owner=" + id, 
+		function(err, rows, fields) {
+
+			if (err) {
+				console.log(err);
+			}
+			else {
+				var listID = rows[0].Id;
+				//console.log(listID);
+				getItems(listID);
+			}
+		});
+
+	var getItems = function(listID) {
+		connection.query("INSERT INTO ToDoItem(Title, Text, DueDate, Completed, Priority, ToDoListID)"
+			+ " VALUES (\"title1\", \"txt1\", \"2016-01-01 00:00:00\", \"0\", \"2\", \""+listID+"\")",
+			function(err, rows, fields) {
+
+				if (err) {
+					console.log(err);
+				}
+				else {
+					// console.log(rows);
+					res.json({'success' : true});
+				}
+		});
+		connection.end();
+	}
 });
 
 app.get("/get-todos", function(req, res) {

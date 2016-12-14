@@ -193,7 +193,7 @@ function clickEvents() {
 			addItem();
 		}
 	});
-	$('#testdb').click(function() {
+	$('#get-db').click(function() {
 		$.ajax
 		({
 			type: "GET",
@@ -204,6 +204,19 @@ function clickEvents() {
 			success: function(data) {
 				var rows = JSON.parse(data.rows);
 				console.log(rows);
+			}
+		});
+	});
+
+	$('#add-db').click(function() {
+		$.ajax
+		({
+			type: "POST",
+			url: "http://localhost:3000/add-db",
+			dataType: "json",
+			ContentType: "application/json",			
+			data: {'id': 3},
+			success: function(data) {console.log(data.success);
 			}
 		});
 	});
