@@ -192,7 +192,14 @@ function clickEvents() {
 		if(key == 13) {
 			addItem();
 		}
-	});   
+	});
+	$('#testdb').click(function() {
+		var show = function(json) {
+			var rows = JSON.parse(json);
+			console.log(rows);
+		}
+		$.getJSON("http://localhost:3000/testdb", show);
+	});
 }
 
 /*$(document).click(function(event) { 

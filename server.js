@@ -26,6 +26,17 @@ app.get("/todo", function(req, res) {
 	res.sendFile(__dirname + "/client/html/todo.html");
 });
 
+app.get("/testdb", function(req, res) {
+	connection.query("SELECT * FROM User", function(err, rows, fields) {
+		if (err) {
+			console.log(err);
+		}
+		else {
+			console.log(rows);
+		}
+	});
+});
+
 app.get("/get-todos", function(req, res) {
 	res.json({'todos' : JSON.stringify(todos)});
 });
