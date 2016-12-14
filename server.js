@@ -19,6 +19,8 @@ var connection = mysql.createConnection({
 	database : "todo"
 });
 
+connection.connect();
+
 
 var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false}));
@@ -33,8 +35,6 @@ app.get("/todo", function(req, res) {
 });
 
 app.get("/testdb", function(req, res) {
-	connection.connect();
-
 	var id = req.query.id;
 
 	connection.query("SELECT Title, Text, DueDate, Completed, Priority"
@@ -44,17 +44,32 @@ app.get("/testdb", function(req, res) {
 			console.log(err);
 		}
 		else {
-			//console.log(rows);
 			res.json({'rows' : JSON.stringify(rows)});
 		}
 	});
-	connection.end();
 });
 
 app.post("/add-db", function(req, res) {
-	connection.connect();
 
 	var id = req.body.id;
+	var item = JSON.parse(req.body.item);
+
+	var getItems = function(listID) {
+		var date = item.date;
+		connection.query("INSERT INTO ToDoItem(Title, Text, DueDate, Completed, Priority, ToDoListID)"
+			+ " VALUES (\""+item.name+"\", \""+item.desc+"\", \""+date.year+"-"+date.month+"-"+date.day+ " 00:00:00\","
+			+ " \"0\", \""+item.rating+"\", \""+listID+"\")",
+			function(err, rows, fields) {
+
+				if (err) {
+					console.log(err);
+				}
+				else {
+					// console.log(rows);
+					res.json({'success' : true});
+				}
+		});
+	}
 
 	connection.query("SELECT Id"
 		+ " FROM ToDoList"
@@ -70,22 +85,6 @@ app.post("/add-db", function(req, res) {
 				getItems(listID);
 			}
 		});
-
-	var getItems = function(listID) {
-		connection.query("INSERT INTO ToDoItem(Title, Text, DueDate, Completed, Priority, ToDoListID)"
-			+ " VALUES (\"title1\", \"txt1\", \"2016-01-01 00:00:00\", \"0\", \"2\", \""+listID+"\")",
-			function(err, rows, fields) {
-
-				if (err) {
-					console.log(err);
-				}
-				else {
-					// console.log(rows);
-					res.json({'success' : true});
-				}
-		});
-		connection.end();
-	}
 });
 
 app.get("/get-todos", function(req, res) {

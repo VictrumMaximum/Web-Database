@@ -30,11 +30,20 @@ TodoDate.prototype.getMonthName = function(month) {
 
 function addItem() {
 	var item = createItem();
-	todos.push(item);
-	sendTodo(item);	//defined in queries.js
-	addItemHTML(item);
-	emptyListHTML();
-	clearForm();
+
+	$.ajax
+	({
+		type: "POST",
+		url: "http://localhost:3000/add-db",
+		dataType: "json",
+		ContentType: "application/json",			
+		data: {'id' : 3, 'item' : JSON.stringify(item)},
+		success: function(data) {console.log(data.success);
+			getTodos();
+			emptyListHTML();
+			clearForm();
+		}
+	});
 }
 
 function createItem() {
@@ -192,33 +201,6 @@ function clickEvents() {
 		if(key == 13) {
 			addItem();
 		}
-	});
-	$('#get-db').click(function() {
-		$.ajax
-		({
-			type: "GET",
-			url: "http://localhost:3000/testdb",
-			dataType: "json",
-			ContentType: "application/json",			
-			data: {'id': 3},
-			success: function(data) {
-				var rows = JSON.parse(data.rows);
-				console.log(rows);
-			}
-		});
-	});
-
-	$('#add-db').click(function() {
-		$.ajax
-		({
-			type: "POST",
-			url: "http://localhost:3000/add-db",
-			dataType: "json",
-			ContentType: "application/json",			
-			data: {'id': 3},
-			success: function(data) {console.log(data.success);
-			}
-		});
 	});
 }
 
