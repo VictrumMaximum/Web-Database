@@ -1,5 +1,4 @@
 function getTodos() {
-	console.log("getting todos...");
 	var setTodos = function(json) {
 		var list = JSON.parse(json.todos);
 		for(var i = 0; i < list.length; i++) {

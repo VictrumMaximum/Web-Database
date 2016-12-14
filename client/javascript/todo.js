@@ -194,11 +194,18 @@ function clickEvents() {
 		}
 	});
 	$('#testdb').click(function() {
-		var show = function(json) {
-			var rows = JSON.parse(json);
-			console.log(rows);
-		}
-		$.getJSON("http://localhost:3000/testdb", show);
+		$.ajax
+		({
+			type: "GET",
+			url: "http://localhost:3000/testdb",
+			dataType: "json",
+			ContentType: "application/json",			
+			data: {'id': 3},
+			success: function(data) {
+				var rows = JSON.parse(data.rows);
+				console.log(rows);
+			}
+		});
 	});
 }
 

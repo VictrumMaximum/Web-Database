@@ -27,12 +27,23 @@ app.get("/todo", function(req, res) {
 });
 
 app.get("/testdb", function(req, res) {
-	connection.query("SELECT * FROM User", function(err, rows, fields) {
+	/*
+		To add myuser:
+		INSERT INTO User(Id, Name, Email, Username, Password) VALUES ("3", "myuser", "myuser@to.do", "myuser", "mypass");
+
+		To add mylist:
+		INSERT INTO ToDoList(Id, Name, CreationDate, Owner, IsPublic) VALUES ("5", "MyList", "2016-01-01 00:00:00", "3", "0");
+	*/
+
+	var id = req.query.id;
+	console.log(id);
+	connection.query("SELECT * FROM User WHERE Id="+id, function(err, rows, fields) {
 		if (err) {
 			console.log(err);
 		}
 		else {
 			console.log(rows);
+			res.json({'rows' : JSON.stringify(rows)});
 		}
 	});
 });
