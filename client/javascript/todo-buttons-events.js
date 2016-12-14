@@ -41,7 +41,7 @@ function removeItem(removeButton) {
 		iterator = iterator.previousSibling;
 		i++;
 	}
-	removeTodo(todos[i]);
+	deleteTodo(todos[i]);
 	todos.splice(i, 1);
 	document.getElementById('todo-list').removeChild(removeButton.parentNode.parentNode);
 	emptyListHTML();

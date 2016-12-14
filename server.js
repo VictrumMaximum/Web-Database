@@ -34,10 +34,10 @@ app.get("/todo", function(req, res) {
 	res.sendFile(__dirname + "/client/html/todo.html");
 });
 
-app.get("/testdb", function(req, res) {
+app.get("/get-todos", function(req, res) {
 	var id = req.query.id;
 
-	connection.query("SELECT Title, Text, DueDate, Completed, Priority"
+	connection.query("SELECT ToDoItem.Id, Title, Text, DueDate, Completed, Priority"
 		+ " FROM ToDoItem JOIN ToDoList ON ToDoItem.ToDoListID=ToDoList.Id"
 		+ " WHERE ToDoList.Owner="+id, function(err, rows, fields) {
 		if (err) {
@@ -49,7 +49,7 @@ app.get("/testdb", function(req, res) {
 	});
 });
 
-app.post("/add-db", function(req, res) {
+app.post("/add-todo", function(req, res) {
 
 	var id = req.body.id;
 	var item = JSON.parse(req.body.item);
@@ -63,9 +63,9 @@ app.post("/add-db", function(req, res) {
 
 				if (err) {
 					console.log(err);
+					res.json({'success' : false});
 				}
 				else {
-					// console.log(rows);
 					res.json({'success' : true});
 				}
 		});
@@ -78,70 +78,32 @@ app.post("/add-db", function(req, res) {
 
 			if (err) {
 				console.log(err);
+				res.json({'success' : false});
 			}
 			else {
 				var listID = rows[0].Id;
-				//console.log(listID);
 				getItems(listID);
 			}
 		});
 });
 
-app.get("/get-todos", function(req, res) {
-	res.json({'todos' : JSON.stringify(todos)});
-});
+app.post("/delete-todo", function(req, res) {
+	var itemID = req.body.itemID;
 
-app.post("/set-todo", function(req, res) {
-	var list = JSON.parse(req.body.list);
-	todos = list;
-	res.json({success : true});
-});
-
-app.post("/add-todo", function(req, res) {
-	if(req.body.item) {
-		var item = JSON.parse(req.body.item);
-		todos.push(item);
-		res.json({success : true});
-	}
-	else {
-		res.json({success : false});
-	}
-});
-
-app.post("/remove-todo", function(req, res) {
-	if(req.body) {
-		var item = JSON.parse(req.body.item);
-		for(var i = 0; i < todos.length; i++) {
-			var comp = todos[i];
-			if(item.name == comp.name
-				&& item.date.day == comp.date.day
-				&& item.date.month == comp.date.month
-				&& item.date.month == comp.date.month
-				&& item.desc == comp.desc) {
-				todos.splice(i, 1);
-				break;
+	connection.query("DELETE FROM ToDoItem"
+		+ " WHERE ToDoItem.Id=\"" + itemID + "\"",
+		function(err, rows, fields) {
+			if (err) {
+					console.log(err);
+					res.json({'success' : false});
 			}
-		}
-		res.json({success : true});
-	}
-	else {
-		res.json({succes : false});
-	}
+			else {
+				res.json({'success' : true});
+			}
+		});
 });
 
 app.post("/done-todo", function(req, res) {
-	var item = JSON.parse(req.body.item);
-	for(var i = 0; i < todos.length; i++) {
-			var comp = todos[i];
-			if(item.name == comp.name
-				&& item.date.day == comp.date.day
-				&& item.date.month == comp.date.month
-				&& item.date.month == comp.date.month
-				&& item.desc == comp.desc) {
-				todos[i].done = true;
-				break;
-			}
-		}
 		res.json({success : true});
 });
 

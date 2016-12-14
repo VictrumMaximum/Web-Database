@@ -1,6 +1,7 @@
 todos = [];
 
-function TodoItem(name, date, desc, remind, rating, done) {
+function TodoItem(id, name, date, desc, remind, rating, done) {
+	this.id = id;
 	this.name = name;
 	this.date = date;
 	this.desc = desc;
@@ -30,20 +31,7 @@ TodoDate.prototype.getMonthName = function(month) {
 
 function addItem() {
 	var item = createItem();
-
-	$.ajax
-	({
-		type: "POST",
-		url: "http://localhost:3000/add-db",
-		dataType: "json",
-		ContentType: "application/json",			
-		data: {'id' : 3, 'item' : JSON.stringify(item)},
-		success: function(data) {console.log(data.success);
-			getTodos();
-			emptyListHTML();
-			clearForm();
-		}
-	});
+	sendTodo(item);
 }
 
 function createItem() {
@@ -76,7 +64,7 @@ function createItem() {
 	}
 	rate = rate|0; // default to 0
 	
-	var item = new TodoItem(name, date, desc, remindDate, rate, false);
+	var item = new TodoItem(0, name, date, desc, remindDate, rate, false);
 	console.log(item);
 	return item;
 }
@@ -85,6 +73,7 @@ function addItemHTML(item) {
 	
 	var itemDiv = document.createElement('div');
 	itemDiv.className = 'todo-item';
+	itemDiv.id = item.id;
 	
 	var contentDiv = document.createElement('div');
 	contentDiv.className = 'todo-content';
@@ -132,7 +121,7 @@ function addItemHTML(item) {
 	var removeButton = document.createElement('button');
 	removeButton.innerHTML = 'remove';
 	removeButton.className = 'item-button';
-	removeButton.onclick = function() {removeItem(removeButton)};
+	removeButton.onclick = function() {deleteTodo(item.id)};
 	
 	buttonDiv.appendChild(doneButton);
 	buttonDiv.appendChild(editButton);

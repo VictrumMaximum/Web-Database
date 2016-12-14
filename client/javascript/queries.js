@@ -1,48 +1,129 @@
 function getTodos() {
 	var rows;
 
-		var addTodos = function(rows) {
-			todos = [];
+		var addTodos = function() {
 			for(var i = 0; i < rows.length; i++) {
 				var item = rows[i];
 
-				todos.push(new TodoItem(
+				// if item already in memory, continue to next iteration
+				if(contains(item.Id)) {
+					continue;
+				}
+
+				var item = new TodoItem(
+					item.Id,
 					item.Title,
 					(item.DueDate? new TodoDate(item.DueDate.substring(8, 9), item.DueDate.substring(5, 6), item.DueDate.substring(0, 3)) : null),
 					item.Text,
 					(item.remind? new TodoDate(item.remind.day, item.remind.month, item.remind.year) : null),
 					item.Priority,
 					item.Completed
-				));
+				);
+
+				todos.push(item);
+				addItemHTML(item);
+				emptyListHTML();
 			}
-			addTodosToHTML();
+		}
+
+		var removeTodos = function() {
+			for(var i = 0; i < todos.length; i++) {
+				var id = todos[i].id;
+
+				// if item from memory does not exist in query, remove it
+				if(!inQuery(rows, id)) {
+					todos.splice(i, 1);
+					removeHTML(id);
+					i--;
+				}
+			}
 		}
 
 		$.ajax
 		({
 			type: "GET",
-			url: "http://localhost:3000/testdb",
+			url: "http://localhost:3000/get-todos",
 			dataType: "json",
 			ContentType: "application/json",			
 			data: {'id': 3},
 			success: function(data) {
 				rows = JSON.parse(data.rows);
-				addTodos(rows);
+				addTodos();
+				removeTodos();
 				// console.log("retrieved items");
 			}
 		});
 }
 
-function contains(list, item) {
-	for(var i = 0; i < list.length; i++) {
-		var comp = list[i];
-		if(item.name === comp.name
-				&& item.date.day === comp.date.day
-				&& item.date.month === comp.date.month
-				&& item.date.month === comp.date.month
-				&& item.desc === comp.desc
-				&& item.rating === comp.rating
-				&& item.done === comp.done) {
+function sendTodo(item) {
+	$.ajax
+	({
+		type: "POST",
+		url: "http://localhost:3000/add-todo",
+		dataType: "json",
+		ContentType: "application/json",			
+		data: {'id' : 3, 'item' : JSON.stringify(item)},
+		success: function(data) {
+			if(data.success) {
+				getTodos();	// retrieves and adds new todos with unique id
+				emptyListHTML();	// toggles the empty list display mode
+				clearForm();
+			}
+			else {
+				alert("server error");
+			}
+		}
+	});
+}
+
+function deleteTodo(deleteID) {
+	$.ajax
+	({
+		type: "POST",
+		url: "http://localhost:3000/delete-todo",
+		dataType: "json",
+		ContentType: "application/json",			
+		data: {'itemID' : deleteID},
+		success: function(data) {
+			removeHTML(deleteID);
+			for(var i = 0; i < todos.length; i++) {
+				var id = todos[i].id;
+
+				if(id === deleteID) {
+					todos.splice(i, 1);
+					break;
+				}
+			}
+			emptyListHTML();
+		}
+	});
+}
+
+function removeHTML(id) {
+	var list = document.getElementById("todo-list");
+	var children = list.children;
+
+	for (var i = 0; i < children.length; i++) {
+		if(parseInt(children[i].id) === id) {
+			list.removeChild(children[i]);
+			break;
+		}
+	}
+	emptyListHTML();
+}
+
+function inQuery(rows, id) {
+	for(var i = 0; i < rows.length; i++) {
+		if(rows[i].Id === id) {
+			return true;
+		}
+	}
+	return false;
+}
+
+function contains(id) {
+	for(var i = 0; i < todos.length; i++) {
+		if(todos[i].id === id) {
 			return true;
 		}
 	}
