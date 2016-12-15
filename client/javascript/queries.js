@@ -88,13 +88,15 @@ function deleteTodo(deleteID) {
 		ContentType: "application/json",			
 		data: {'itemID' : deleteID},
 		success: function(data) {
-			removeHTML(deleteID);
-			for(var i = 0; i < todos.length; i++) {
-				var id = todos[i].id;
+			if(data.success) {
+				removeHTML(deleteID);
+				for(var i = 0; i < todos.length; i++) {
+					var id = todos[i].id;
 
-				if(id === deleteID) {
-					todos.splice(i, 1);
-					break;
+					if(id === deleteID) {
+						todos.splice(i, 1);
+						break;
+					}
 				}
 			}
 		}

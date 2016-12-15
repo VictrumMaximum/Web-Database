@@ -123,7 +123,16 @@ app.post("/delete-todo", function(req, res) {
 });
 
 app.post("/done-todo", function(req, res) {
-		res.json({success : false});
+	connection.query("UPDATE ToDoItem"
+		+ " SET ToDoItem.Completed=\"1\"", function(err, rows, fields) {
+			if (err) {
+				console.log(err);
+				res.json({'success' : false});
+			}
+			else {
+				res.json({'success' : true});
+			}
+	});
 });
 
 http.createServer(app).listen(port);
