@@ -51,8 +51,15 @@ app.get("/get-todos", function(req, res) {
 
 app.post("/add-todo", function(req, res) {
 
-	var id = req.body.id;
+	var userID = req.body.id;
 	var item = JSON.parse(req.body.item);
+
+	var returnID = function() {
+		connection.query("SELECT LAST_INSERT_ID() FROM ToDoItem",
+			function(err, rows, fields) {
+				res.json({'itemID' : rows[0]['LAST_INSERT_ID()']});
+			});
+	}
 
 	var getItems = function(listID) {
 		var date = item.date;
@@ -63,17 +70,16 @@ app.post("/add-todo", function(req, res) {
 
 				if (err) {
 					console.log(err);
-					res.json({'success' : false});
 				}
 				else {
-					res.json({'success' : true});
+					returnID();
 				}
 		});
 	}
 
 	connection.query("SELECT Id"
 		+ " FROM ToDoList"
-		+ " WHERE ToDoList.Owner=" + id, 
+		+ " WHERE ToDoList.Owner=" + userID, 
 		function(err, rows, fields) {
 
 			if (err) {
@@ -89,18 +95,31 @@ app.post("/add-todo", function(req, res) {
 
 app.post("/delete-todo", function(req, res) {
 	var itemID = req.body.itemID;
+	var success = false;
+
+	connection.query("DELETE FROM ItemTag"
+		+ " WHERE ItemTag.ToDoId=\"" + itemID + "\"",
+		function(err, rows, fields) {
+			if (err) {
+					console.log(err);
+			}
+			else {
+				success = true;
+			}
+		});
 
 	connection.query("DELETE FROM ToDoItem"
 		+ " WHERE ToDoItem.Id=\"" + itemID + "\"",
 		function(err, rows, fields) {
 			if (err) {
 					console.log(err);
-					res.json({'success' : false});
+					success = false;
 			}
 			else {
-				res.json({'success' : true});
+				success = true;
 			}
 		});
+	res.json({'success' : success});
 });
 
 app.post("/done-todo", function(req, res) {

@@ -1,4 +1,5 @@
 todos = [];
+userID = 3;
 
 function TodoItem(id, name, date, desc, remind, rating, done) {
 	this.id = id;

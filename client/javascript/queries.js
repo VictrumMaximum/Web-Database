@@ -13,7 +13,7 @@ function getTodos() {
 				var item = new TodoItem(
 					item.Id,
 					item.Title,
-					(item.DueDate? new TodoDate(item.DueDate.substring(8, 9), item.DueDate.substring(5, 6), item.DueDate.substring(0, 3)) : null),
+					(item.DueDate? new TodoDate(item.DueDate.substring(8, 10), item.DueDate.substring(5, 7), item.DueDate.substring(0, 4)) : null),
 					item.Text,
 					(item.remind? new TodoDate(item.remind.day, item.remind.month, item.remind.year) : null),
 					item.Priority,
@@ -22,7 +22,7 @@ function getTodos() {
 
 				todos.push(item);
 				addItemHTML(item);
-				emptyListHTML();
+				emptyListHTML();	// toggles the empty list display mode
 			}
 		}
 
@@ -37,6 +37,7 @@ function getTodos() {
 					i--;
 				}
 			}
+			emptyListHTML();	// toggles the empty list display mode
 		}
 
 		$.ajax
@@ -45,7 +46,7 @@ function getTodos() {
 			url: "http://localhost:3000/get-todos",
 			dataType: "json",
 			ContentType: "application/json",			
-			data: {'id': 3},
+			data: {'id': userID},
 			success: function(data) {
 				rows = JSON.parse(data.rows);
 				addTodos();
@@ -62,10 +63,12 @@ function sendTodo(item) {
 		url: "http://localhost:3000/add-todo",
 		dataType: "json",
 		ContentType: "application/json",			
-		data: {'id' : 3, 'item' : JSON.stringify(item)},
+		data: {'id' : userID, 'item' : JSON.stringify(item)},
 		success: function(data) {
-			if(data.success) {
-				getTodos();	// retrieves and adds new todos with unique id
+			if(data.itemID) {
+				item.id = data.itemID;
+				todos.push(item);
+				addItemHTML(item);
 				emptyListHTML();	// toggles the empty list display mode
 				clearForm();
 			}
@@ -94,7 +97,6 @@ function deleteTodo(deleteID) {
 					break;
 				}
 			}
-			emptyListHTML();
 		}
 	});
 }
