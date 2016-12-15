@@ -114,6 +114,60 @@ function removeHTML(id) {
 	emptyListHTML();
 }
 
+function doneTodo(itemID) {
+	$.ajax
+	({
+		type: "POST",
+		url: "http://localhost:3000/done-todo",
+		dataType: "json",
+		ContentType: "application/json",			
+		data: {'itemID': itemID},
+		success: function(data) {
+			if(data.success === true) {
+				console.log("succeeded");
+				doneHTML(itemID);
+			}
+			else {
+				alert("server error");
+			}
+		}
+	});
+
+	
+}
+
+function doneHTML(itemID) {
+	var itemDiv;
+
+	var list = document.getElementById("todo-list");
+	var children = list.children;
+
+	for (var i = 0; i < children.length; i++) {
+		if(parseInt(children[i].id) === itemID) {
+			itemDiv = children[i];
+			break;
+		}
+	}
+
+	for (var i = 0; i < todos.length; i++) {
+		if(todos[i].id === itemID) {
+			todos[i].done = true;
+			break;
+		}
+	}
+
+	itemDiv.style.color = 'green';
+	
+	var buttonDiv = itemDiv.children[1];
+	var buttons = buttonDiv.childNodes;
+	var doneButton = buttons[0];
+	var editButton = buttons[1];
+	buttonDiv.removeChild(doneButton);
+	buttonDiv.removeChild(editButton);
+}
+
+
+
 function inQuery(rows, id) {
 	for(var i = 0; i < rows.length; i++) {
 		if(rows[i].Id === id) {

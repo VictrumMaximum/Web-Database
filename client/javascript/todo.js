@@ -112,7 +112,7 @@ function addItemHTML(item) {
 	var doneButton = document.createElement('button');
 	doneButton.innerHTML = 'done';
 	doneButton.className = 'item-button';
-	doneButton.onclick = function() {doneItem(doneButton)};
+	doneButton.onclick = function() {doneTodo(item.id)};
 	
 	var editButton = document.createElement('button');
 	editButton.innerHTML = 'edit';
@@ -132,7 +132,7 @@ function addItemHTML(item) {
 	
 	document.getElementById("todo-list").appendChild(itemDiv);
 	if(item.done) {
-		doneItem(doneButton);
+		doneHTML(item.id);
 	}
 }
 

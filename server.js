@@ -123,7 +123,7 @@ app.post("/delete-todo", function(req, res) {
 });
 
 app.post("/done-todo", function(req, res) {
-		res.json({success : true});
+		res.json({success : false});
 });
 
 http.createServer(app).listen(port);
