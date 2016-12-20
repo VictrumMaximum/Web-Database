@@ -1,0 +1,17 @@
+1. SELECT * FROM ToDoList WHERE ToDoList.Owner=<ID>
+
+2. SELECT * FROM ToDoItem WHERE ToDoItem.ToDoListID=<ID>
+
+3. SELECT * FROM ToDoItems LIMIT <OFFSET>,<COUNT>
+
+4. 
+
+5. SELECT * FROM ToDoItem WHERE ToDoItem.ParentToDo=<ID>
+
+6. SELECT Text FROM ItemTag join Tag ON ItemTag.TagId=Tag.Id WHERE ItemTag.ToDoId=<ID>
+
+7. SELECT distinct Name FROM Tag join ItemTag on Tag.Id=ItemTag.TagId JOIN ToDoItem ON ToDoItem.Id=ItemTag.ToDoId JOIN ToDoList ON ToDoItem.ToDoListId=ToDoList.Id WHERE Tag.Id=<ID>
+
+8. SELECT Tag.Id, COUNT(case when Completed=1 then 1 end) AS completed, COUNT(case when Completed=0 then 1 end) AS pending FROM ToDoItem JOIN ItemTag ON ToDoItem.Id=ItemTag.ToDoId JOIN Tag ON ItemTag.TagId=Tag.Id GROUP BY Tag.Id
+
+9. 
