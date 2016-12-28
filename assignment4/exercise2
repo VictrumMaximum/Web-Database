@@ -14,4 +14,6 @@
 
 8. SELECT Tag.Id, COUNT(case when Completed=1 then 1 end) AS completed, COUNT(case when Completed=0 then 1 end) AS pending FROM ToDoItem JOIN ItemTag ON ToDoItem.Id=ItemTag.ToDoId JOIN Tag ON ItemTag.TagId=Tag.Id GROUP BY Tag.Id
 
-9. 
+9. SELECT WEEK(ToDoItem.CompletionDate) as week, COUNT(*) as completed FROM ToDoItem WHERE Completed=1 GROUP BY week;SELECT WEEK(ToDoItem.CompletionDate) as week, COUNT(*) as completed FROM ToDoItem WHERE Completed=1 GROUP BY week
+
+10. 
