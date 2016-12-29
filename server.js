@@ -135,5 +135,130 @@ app.post("/done-todo", function(req, res) {
 	});
 });
 
+app.get("/dashboard", function(req, res) {
+	res.sendFile(__dirname + "/client/html/dashboard.html");
+});
+
+app.get("/Q1", function(req, res) {
+	var id = req.query.id;
+
+	connection.query("SELECT * FROM ToDoList WHERE ToDoList.Owner=\"" + id + "\"",
+		function(err, rows, fields) {
+			if (err) {
+					console.log(err);
+			}
+			else {
+				res.json({'rows' : JSON.stringify(rows)});
+			}
+		});
+});
+
+app.get("/Q2", function(req, res) {
+	var id = req.query.id;
+
+	connection.query("SELECT * FROM ToDoItem WHERE ToDoItem.ToDoListID=\"" + id + "\"",
+		function(err, rows, fields) {
+			if (err) {
+					console.log(err);
+			}
+			else {
+				res.json({'rows' : JSON.stringify(rows)});
+			}
+		});
+});
+
+app.get("/Q3", function(req, res) {
+	var id = req.query.id;
+
+	connection.query("SELECT * FROM ToDoItem WHERE ToDoItem.ToDoListID=\"" + id + "\" LIMIT 3,7>",
+		function(err, rows, fields) {
+			if (err) {
+					console.log(err);
+			}
+			else {
+				res.json({'rows' : JSON.stringify(rows)});
+			}
+		});
+});
+
+app.get("/Q4", function(req, res) {
+	connection.query("",
+		function(err, rows, fields) {
+			if (err) {
+					console.log(err);
+			}
+			else {
+				res.json({'rows' : JSON.stringify(rows)});
+			}
+		});
+});
+
+
+app.get("/Q5", function(req, res) {
+	connection.query("",
+		function(err, rows, fields) {
+			if (err) {
+					console.log(err);
+			}
+			else {
+				res.json({'rows' : JSON.stringify(rows)});
+			}
+		});
+});
+
+app.get("/Q6", function(req, res) {
+	connection.query("",
+		function(err, rows, fields) {
+			if (err) {
+					console.log(err);
+			}
+			else {
+				res.json({'rows' : JSON.stringify(rows)});
+			}
+		});
+});
+
+app.get("/Q7", function(req, res) {
+	connection.query("",
+		function(err, rows, fields) {
+
+		});
+});
+
+app.get("/Q8", function(req, res) {
+	connection.query("",
+		function(err, rows, fields) {
+
+		});
+});
+
+app.get("/Q9", function(req, res) {
+	connection.query("",
+		function(err, rows, fields) {
+
+		});
+});
+
+app.get("/Q10", function(req, res) {
+	connection.query("",
+		function(err, rows, fields) {
+
+		});
+});
+
+app.get("/Q11", function(req, res) {
+	connection.query("",
+		function(err, rows, fields) {
+
+		});
+});
+
+app.get("/Q12", function(req, res) {
+	connection.query("",
+		function(err, rows, fields) {
+
+		});
+});
+
 http.createServer(app).listen(port);
 console.log("listening at port " + port);
