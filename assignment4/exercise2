@@ -42,3 +42,10 @@
 	FROM ItemTag it1 JOIN ItemTag it2 ON it1.ToDoId = it2.ToDoId
 	WHERE it1.TagId < it2.TagId
 	GROUP BY it1.TagId, it2.TagId;
+
+12.	SELECT AVG(time)
+	FROM
+		(SELECT (tdi.completiondate-tdi.creationdate) as time
+		FROM ToDoItem tdi
+		WHERE tdi.ToDoListId = 1 AND tdi.completiondate IS NOT NULL
+			AND tdi.completiondate > tdi.creationdate) as times
