@@ -65,6 +65,7 @@ function createItem() {
 	}
 	rate = rate|0; // default to 0
 	
+	// proper id is set after response from node server
 	var item = new TodoItem(0, name, date, desc, remindDate, rate, false);
 	console.log(item);
 	return item;
