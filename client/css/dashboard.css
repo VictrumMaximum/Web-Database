@@ -1,3 +1,10 @@
-.q1head {
-	border : 1px solid black;
+table {
+	text-align: left;
+	border-collapse: collapse;
+}
+
+tbody {
+	border: 1px solid black;
+	border-collapse: separate;
+    border-spacing: 6px; 
 }

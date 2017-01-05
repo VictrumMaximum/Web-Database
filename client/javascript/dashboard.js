@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	getQ1();
-	/*
 	getQ2();
+	/*
 	getQ3();
 	getQ4();
 	getQ5();
@@ -61,15 +61,41 @@ function getQ1() {
 }
 
 function getQ2() {
+	var div = document.getElementById('Q2');
+	var select = div.children[0];
+	select.onchange = function() {getQ2()};
+
+	var table = div.children[1];
+	var new_tbody = document.createElement('tbody');
+
 	$.ajax
 		({
 			type: "GET",
 			url: "http://localhost:3000/Q2",
 			dataType: "json",
 			ContentType: "application/json",
-			data: {"id" : 3},
+			data: {"id" : select.value},
 			success: function(data) {
 				rows = JSON.parse(data.rows);
+				console.log(rows);
+				
+				for(var i = 0; i < rows.length; i++) {
+					var tr = document.createElement('tr');
+					var id = document.createElement('td');
+					var title = document.createElement('td');
+					var text = document.createElement('td');
+
+					id.innerHTML = rows[i].Id;
+					title.innerHTML = rows[i].Title;
+					text.innerHTML = rows[i].Text;
+
+					tr.appendChild(id);
+					tr.appendChild(title);
+					tr.appendChild(text);
+
+					new_tbody.appendChild(tr);
+				}
+				table.replaceChild(new_tbody, table.children[1]);
 			}
 		});
 }
