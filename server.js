@@ -171,7 +171,7 @@ app.get("/Q2", function(req, res) {
 app.get("/Q3", function(req, res) {
 	var id = req.query.id;
 
-	connection.query("SELECT * FROM ToDoItem WHERE ToDoItem.ToDoListID=\"" + id + "\" LIMIT 3,7>",
+	connection.query("SELECT * FROM ToDoItem WHERE ToDoItem.ToDoListID=\"" + id + "\" LIMIT 3,7",
 		function(err, rows, fields) {
 			if (err) {
 					console.log(err);
@@ -196,7 +196,9 @@ app.get("/Q4", function(req, res) {
 
 
 app.get("/Q5", function(req, res) {
-	connection.query("",
+	var id = req.query.id;
+	
+	connection.query("SELECT * FROM ToDoItem WHERE ToDoItem.ParentToDo=\"" + id + "\"",
 		function(err, rows, fields) {
 			if (err) {
 					console.log(err);

@@ -1,10 +1,10 @@
 $(document).ready(function() {
 	getQ1();
 	getQ2();
-	/*
 	getQ3();
-	getQ4();
+	//getQ4();
 	getQ5();
+	/*
 	getQ6();
 	getQ7();
 	getQ8();
@@ -77,7 +77,7 @@ function getQ2() {
 			data: {"id" : select.value},
 			success: function(data) {
 				rows = JSON.parse(data.rows);
-				console.log(rows);
+				// console.log(rows);
 				
 				for(var i = 0; i < rows.length; i++) {
 					var tr = document.createElement('tr');
@@ -101,41 +101,121 @@ function getQ2() {
 }
 
 function getQ3() {
+	var div = document.getElementById('Q3');
+	var select = div.children[0];
+	select.onchange = function() {getQ3()};
+
+	var table = div.children[1];
+	var new_tbody = document.createElement('tbody');
+
 	$.ajax
 		({
 			type: "GET",
 			url: "http://localhost:3000/Q3",
 			dataType: "json",
 			ContentType: "application/json",
-			data: {"id" : 3},
+			data: {"id" : select.value},
 			success: function(data) {
 				rows = JSON.parse(data.rows);
+				console.log(rows);
+				
+				for(var i = 0; i < rows.length; i++) {
+					var tr = document.createElement('tr');
+					var id = document.createElement('td');
+					var title = document.createElement('td');
+					var text = document.createElement('td');
+
+					id.innerHTML = rows[i].Id;
+					title.innerHTML = rows[i].Title;
+					text.innerHTML = rows[i].Text;
+
+					tr.appendChild(id);
+					tr.appendChild(title);
+					tr.appendChild(text);
+
+					new_tbody.appendChild(tr);
+				}
+				table.replaceChild(new_tbody, table.children[1]);
 			}
 		});
 }
 
 function getQ4() {
+	var div = document.getElementById('Q4');
+	var select = div.children[0];
+	select.onchange = function() {getQ4()};
+
+	var table = div.children[1];
+	var new_tbody = document.createElement('tbody');
+
 	$.ajax
 		({
 			type: "GET",
 			url: "http://localhost:3000/Q4",
 			dataType: "json",
 			ContentType: "application/json",
+			data: {"id" : select.value},
 			success: function(data) {
 				rows = JSON.parse(data.rows);
+				console.log(rows);
+				
+				for(var i = 0; i < rows.length; i++) {
+					var tr = document.createElement('tr');
+					var id = document.createElement('td');
+					var title = document.createElement('td');
+					var text = document.createElement('td');
+
+					id.innerHTML = rows[i].Id;
+					title.innerHTML = rows[i].Title;
+					text.innerHTML = rows[i].Text;
+
+					tr.appendChild(id);
+					tr.appendChild(title);
+					tr.appendChild(text);
+
+					new_tbody.appendChild(tr);
+				}
+				table.replaceChild(new_tbody, table.children[1]);
 			}
 		});
 }
 
 function getQ5() {
+	var div = document.getElementById('Q5');
+	var select = div.children[0];
+	select.onchange = function() {getQ5()};
+
+	var table = div.children[1];
+	var new_tbody = document.createElement('tbody');
+
 	$.ajax
 		({
 			type: "GET",
 			url: "http://localhost:3000/Q5",
 			dataType: "json",
 			ContentType: "application/json",
+			data: {"id" : select.value},
 			success: function(data) {
 				rows = JSON.parse(data.rows);
+				console.log(rows);
+				
+				for(var i = 0; i < rows.length; i++) {
+					var tr = document.createElement('tr');
+					var id = document.createElement('td');
+					var title = document.createElement('td');
+					var text = document.createElement('td');
+
+					id.innerHTML = rows[i].Id;
+					title.innerHTML = rows[i].Title;
+					text.innerHTML = rows[i].Text;
+
+					tr.appendChild(id);
+					tr.appendChild(title);
+					tr.appendChild(text);
+
+					new_tbody.appendChild(tr);
+				}
+				table.replaceChild(new_tbody, table.children[1]);
 			}
 		});
 }
