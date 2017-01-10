@@ -183,6 +183,7 @@ app.get("/Q3", function(req, res) {
 });
 
 app.get("/Q4", function(req, res) {
+	/*
 	connection.query("",
 		function(err, rows, fields) {
 			if (err) {
@@ -192,6 +193,8 @@ app.get("/Q4", function(req, res) {
 				res.json({'rows' : JSON.stringify(rows)});
 			}
 		});
+		*/
+		res.json({'rows' : JSON.stringify({'todo' : 'todo'})});
 });
 
 
@@ -224,7 +227,13 @@ app.get("/Q6", function(req, res) {
 });
 
 app.get("/Q7", function(req, res) {
-	connection.query("",
+	var id = req.query.id;
+
+	connection.query("SELECT distinct Name"
+		+ " FROM Tag join ItemTag on Tag.Id=ItemTag.TagId"
+		+ " JOIN ToDoItem ON ToDoItem.Id=ItemTag.ToDoId"
+		+ " JOIN ToDoList ON ToDoItem.ToDoListId=ToDoList.Id"
+		+ " WHERE Tag.Id=\"" + id + "\"",
 		function(err, rows, fields) {
 
 		});
