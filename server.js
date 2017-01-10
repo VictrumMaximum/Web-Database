@@ -197,7 +197,7 @@ app.get("/Q4", function(req, res) {
 
 app.get("/Q5", function(req, res) {
 	var id = req.query.id;
-	
+
 	connection.query("SELECT * FROM ToDoItem WHERE ToDoItem.ParentToDo=\"" + id + "\"",
 		function(err, rows, fields) {
 			if (err) {
@@ -210,7 +210,9 @@ app.get("/Q5", function(req, res) {
 });
 
 app.get("/Q6", function(req, res) {
-	connection.query("",
+	var id = req.query.id;
+
+	connection.query("SELECT Text FROM ItemTag join Tag ON ItemTag.TagId=Tag.Id WHERE ItemTag.ToDoId=\"" + id + "\"",
 		function(err, rows, fields) {
 			if (err) {
 					console.log(err);
