@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+
+<html> 
+	<head>
+		<title> 
+			Manage Me
+		</title>
+		<link rel="stylesheet" type="text/css" href="../css/todo.css">
+		<link rel="stylesheet" type="text/css" href="../css/top_bar.css">
+		<script src="../javascript/jquery-3.1.1.min.js"></script>
+		<script src="../javascript/queries.js"></script>
+		<script src="../javascript/sort.js"></script>
+		<script src="../javascript/todo-buttons-events.js"></script>
+		<script src="../javascript/todo.js"></script>
+	</head> 
+	<body>
+		<div class="wrapper">
+			<div class="top-bar">
+				<p>
+					<a href="http://localhost:3000/"> Home </a> | 
+					<a href="#"> About </a> |
+					<a href="#"> Login </a> 
+				</P>  
+				<img src="../images/logo.png" width="100" height="54">
+			</div> <!--top-bar-->
+
+			<hr>
+
+			<div class="content">
+				<div class="create-todo">
+					<div class="creator">
+						<h1>Create Todo</h1>
+						<form id="todo-form">
+							<input type="text" id="todo-name" placeholder="What do you need to do?" autocomplete="off" autofocus><br>
+							<input type="text" id="todo-desc" placeholder="Extra description (optional)" autocomplete="off"><br>
+							<select id="todo-day">
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+								<option value="10">10</option>
+								<option value="11">11</option>
+								<option value="12">12</option>
+								<option value="13">13</option>
+								<option value="14">14</option>
+								<option value="15">15</option>
+								<option value="16">16</option>
+								<option value="17">17</option>
+								<option value="18">18</option>
+								<option value="19">19</option>
+								<option value="20">20</option>
+								<option value="21">21</option>
+								<option value="22">22</option>
+								<option value="23">23</option>
+								<option value="24">24</option>
+								<option value="25">25</option>
+								<option value="26">26</option>
+								<option value="27">27</option>
+								<option value="28">28</option>
+								<option value="29">29</option>
+								<option value="30">30</option>
+								<option value="31">31</option>
+							</select>
+							<select id="todo-month">
+								<option value="1">Januari</option>
+								<option value="2">Februari</option>
+								<option value="3">March</option>
+								<option value="4">April</option>
+								<option value="5">May</option>
+								<option value="6">June</option>
+								<option value="7">July</option>
+								<option value="8">August</option>
+								<option value="9">September</option>
+								<option value="10">October</option>
+								<option value="11">November</option>
+								<option value="12">December</option>	
+							</select>
+							<select id="todo-year">
+								<option value="2016">2016</option>
+								<option value="2017">2017</option>
+								<option value="2018">2018</option>
+								<option value="2019">2019</option>
+								<option value="2020">2020</option>
+								<option value="2021">2021</option>
+								<option value="2022">2022</option>
+								<option value="2023">2023</option>
+								<option value="2024">2024</option>
+								<option value="2025">2025</option>
+								<option value="2026">2026</option>
+								<option value="2027">2027</option>
+								<option value="2028">2028</option>
+								<option value="2029">2029</option>
+								<option value="2030">2030</option>
+								<option value="2031">2031</option>
+								<option value="2032">2032</option>
+								<option value="2033">2033</option>
+								<option value="2034">2034</option>
+								<option value="2035">2035</option>
+							</select><br>
+							<input type="checkbox" id="remind-toggle" onchange="toggleRemind();"> Set reminder<br>
+							
+							<select  class="remind" id="remind-day" disabled>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+								<option value="10">10</option>
+								<option value="11">11</option>
+								<option value="12">12</option>
+								<option value="13">13</option>
+								<option value="14">14</option>
+								<option value="15">15</option>
+								<option value="16">16</option>
+								<option value="17">17</option>
+								<option value="18">18</option>
+								<option value="19">19</option>
+								<option value="20">20</option>
+								<option value="21">21</option>
+								<option value="22">22</option>
+								<option value="23">23</option>
+								<option value="24">24</option>
+								<option value="25">25</option>
+								<option value="26">26</option>
+								<option value="27">27</option>
+								<option value="28">28</option>
+								<option value="29">29</option>
+								<option value="30">30</option>
+								<option value="31">31</option>
+							</select>
+							<select class="remind" id="remind-month" disabled>
+								<option value="1">Januari</option>
+								<option value="2">Februari</option>
+								<option value="3">March</option>
+								<option value="4">April</option>
+								<option value="5">May</option>
+								<option value="6">June</option>
+								<option value="7">July</option>
+								<option value="8">August</option>
+								<option value="9">September</option>
+								<option value="10">October</option>
+								<option value="11">November</option>
+								<option value="12">December</option>
+							</select>
+							<select class="remind" id="remind-year" disabled>
+								<option value="2016">2016</option>
+								<option value="2017">2017</option>
+								<option value="2018">2018</option>
+								<option value="2019">2019</option>
+								<option value="2020">2020</option>
+								<option value="2021">2021</option>
+								<option value="2022">2022</option>
+								<option value="2023">2023</option>
+								<option value="2024">2024</option>
+								<option value="2025">2025</option>
+								<option value="2026">2026</option>
+								<option value="2027">2027</option>
+								<option value="2028">2028</option>
+								<option value="2029">2029</option>
+								<option value="2030">2030</option>
+								<option value="2031">2031</option>
+								<option value="2032">2032</option>
+								<option value="2033">2033</option>
+								<option value="2034">2034</option>
+								<option value="2035">2035</option>
+							</select><br>
+							
+							Priority<br>
+							<input type="radio" name="rate" id="ra1" value="1"> 1
+							<input type="radio" name="rate" id="ra2" value="2"> 2
+							<input type="radio" name="rate" id="ra3" value="3"> 3
+							<input type="radio" name="rate" id="ra4" value="4"> 4
+							<input type="radio" name="rate" id="ra5" value="5"> 5
+
+							<input type="text" id="tag">
+							<input type="text" id="list">
+							<input type="text" id="child">
+							
+						</form>
+					</div> <!-- creator -->
+					<button type="submit" class="create-button" id="add-todo">Add</button>
+					<button type="reset" class="create-button" form="todo-form">Clear</button>
+				</div> <!-- create-todo -->
+				
+				<div class="view-todo">
+					<div class="viewer">
+						<div class="sort-buttons">
+							<span>Sort by:</span>
+							<button type="button" class="sort-button" id="sort-date">date</button>
+							<button type="button" class="sort-button" id="sort-rating">priority</button>
+						</div>
+						<div id="empty-list">
+							You have no to-do items on your list!<br>
+							Use the to-do creator on the left!
+						</div>
+						<div class="todo-list" id="todo-list"></div> <!-- todo-list -->
+					</div> <!-- viewer -->
+				</div> <!-- view-todo -->
+			</div> <!-- content -->
+		</div> <!-- wrapper -->
+	</body>
+
+</html>

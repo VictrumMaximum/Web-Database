@@ -1,0 +1,128 @@
+1.
++----+--------+---------------------+-------+----------+
+| Id | Name   | CreationDate        | Owner | IsPublic |
++----+--------+---------------------+-------+----------+
+|  1 | School | 2013-01-25 12:35:00 |     1 |        0 |
+|  2 | Work   | 2014-02-14 00:00:00 |     1 |        0 |
++----+--------+---------------------+-------+----------+
+
+
+2.
++----+------------------------------+------------------------------------------------------------------+
+| Id | Title                        | Text                                                             |
++----+------------------------------+------------------------------------------------------------------+
+|  1 | Do assignment 1              | Finish assignment one before the assessment time                 |
+|  2 | Do telnet exercises          | Do all telnet exercises and understand what is happening and why |
+|  3 | Do HTML part of assignment 1 | Do the html part of the first assignment: code and design        |
+| 17 | Assignment 2                 | Fix all parts of assignment 2 for webdata                        |
+| 18 | First part of 2              | Do the first part of the second assignment                       |
+| 19 | Second part of 2             | Do the second part of the second assignment                      |
+| 20 | Learn for Midterm            | For webdata midterm                                              |
+| 22 | Assigment 3 and 4            | For webdata                                                      |
+| 23 | Assignemnt 3 part 1          | part 1 for A3                                                    |
+| 24 | Assignment 3 part 2          | part 2 for A3                                                    |
+| 25 | Assignment 4 part 1          | part 1 for A4                                                    |
+| 26 | Assignment 4 part 2          | part 2 for A4                                                    |
+| 27 | Create database for students | So they can practice with the assignments                        |
++----+------------------------------+------------------------------------------------------------------+
+
+3.
++----+--------------------------------+----------------------------------------------------------------------------+
+| Id | Title                          | Text                                                                       |
++----+--------------------------------+----------------------------------------------------------------------------+
+|  4 | Bring presents to the children | Bring presents to all the children without being spotted                   |
+|  5 | Do the paperwork               | Do the paperwork to finish the work we did                                 |
+|  6 | Finish the group assignment    | We need to finish the group assignment,preferably long before the deadline |
+|  7 | Creates images                 | We can create images to make the assignment look better                    |
+|  8 | Finish chapter 1               | Finish and check the text for chapter 1                                    |
+|  9 | Finish chapter 2               | Finish and check chapter 2                                                 |
+| 10 | Finish conclusion              | Finish and check the conclusion                                            |
++----+--------------------------------+----------------------------------------------------------------------------+
+
+
+4.
++----+-------------------+---------------------------------------------------------+
+| id | title             | text                                                    |
++----+-------------------+---------------------------------------------------------+
+|  7 | Creates images    | We can create images to make the assignment look better |
+| 13 | Exercise          | Cycle 50 kms                                            |
+| 14 | Exercise          | Run 10k                                                 |
+| 20 | Learn for Midterm | For webdata midterm                                     |
+| 21 | Vacuum            | in my room                                              |
++----+-------------------+---------------------------------------------------------+
+
+
+5.
++----+------------------------------+------------------------------------------------------------------+
+| id | title                        | text                                                             |
++----+------------------------------+------------------------------------------------------------------+
+|  2 | Do telnet exercises          | Do all telnet exercises and understand what is happening and why |
+|  3 | Do HTML part of assignment 1 | Do the html part of the first assignment: code and design        |
++----+------------------------------+------------------------------------------------------------------+
+
+
+6.
++---------+
+| Text    |
++---------+
+| webdata |
+| school  |
++---------+
+
+
+7. 
++--------+
+| Name   |
++--------+
+| School |
++--------+
+
+
+8.
++----+-----------+---------+
+| Id | completed | pending |
++----+-----------+---------+
+|  1 |        13 |       0 |
+|  2 |         2 |       1 |
+|  3 |        18 |       1 |
+|  4 |         1 |       1 |
+|  5 |         7 |       1 |
++----+-----------+---------+
+
+
+9.
++------+-----------+
+| week | completed |
++------+-----------+
+| NULL |         9 |
+|   20 |         1 |
+|   43 |         1 |
+|   44 |         1 |
+|   46 |         3 |
+|   47 |         4 |
+|   48 |         1 |
+|   50 |         4 |
++------+-----------+
+
+
+10.
+
+11. 
++-------+-------+-------+
+| TagId | TagId | count |
++-------+-------+-------+
+|     1 |     3 |    13 |
+|     1 |     5 |     1 |
+|     2 |     5 |     3 |
+|     3 |     5 |     2 |
++-------+-------+-------+
+
+
+12.
++--------------+
+| AVG(time)    |
++--------------+
+| 5671403.2222 |
++--------------+
+
+13.
