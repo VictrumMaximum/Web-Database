@@ -12,3 +12,7 @@ tbody {
 div {
 	margin: 2em;
 }
+
+td {
+	padding: 3px;
+}

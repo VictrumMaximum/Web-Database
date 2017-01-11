@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	for(var i = 1; i <= 7; i++) {
+	for(var i = 1; i <= 9; i++) {
 		getQuery(i);
 	}
 });
@@ -26,11 +26,12 @@ function getQuery(id) {
 
 function getTable(id) {
 	var div = document.getElementById('Q' + id);
-	var select = div.children[0];
-	select.onchange = function() {getQuery(id)};
-	var table = div.children[1];
-
-	return table;
+	if(div.children.length > 1) {
+		var select = div.children[0];
+		select.onchange = function() {getQuery(id)};
+		return div.children[1];
+	}
+	return div.children[0];
 }
 
 function getValue(id) {
@@ -46,7 +47,20 @@ function addToTable(id, rows) {
 
 		for (var property in rows[i]) {
 			var column = document.createElement('td');
-			column.innerHTML = rows[i][property];
+			
+			if(property === 'IsPublic') {
+				var bool = rows[i][property];
+				if(bool === 1) {
+					column.innerHTML = 'yes';
+				}
+				else {
+					column.innerHTML = 'no';
+				}
+				
+			}
+			else {
+				column.innerHTML = rows[i][property];
+			}
 			tr.appendChild(column);
 		}
 		new_tbody.appendChild(tr);

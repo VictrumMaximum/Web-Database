@@ -143,7 +143,7 @@ app.get("/dashboard", function(req, res) {
 app.get("/Q1", function(req, res) {
 	var id = req.query.id;
 
-	connection.query("SELECT * FROM ToDoList WHERE ToDoList.Owner=\"" + id + "\"",
+	connection.query("SELECT Id, Name, IsPublic FROM ToDoList WHERE ToDoList.Owner=\"" + id + "\"",
 		function(err, rows, fields) {
 			if (err) {
 					console.log(err);
@@ -157,7 +157,7 @@ app.get("/Q1", function(req, res) {
 app.get("/Q2", function(req, res) {
 	var id = req.query.id;
 
-	connection.query("SELECT * FROM ToDoItem WHERE ToDoItem.ToDoListID=\"" + id + "\"",
+	connection.query("SELECT Id, Title, Text FROM ToDoItem WHERE ToDoItem.ToDoListID=\"" + id + "\"",
 		function(err, rows, fields) {
 			if (err) {
 					console.log(err);
@@ -171,7 +171,7 @@ app.get("/Q2", function(req, res) {
 app.get("/Q3", function(req, res) {
 	var id = req.query.id;
 
-	connection.query("SELECT * FROM ToDoItem WHERE ToDoItem.ToDoListID=\"" + id + "\" LIMIT 3,7",
+	connection.query("SELECT Id, Title, Text FROM ToDoItem WHERE ToDoItem.ToDoListID=\"" + id + "\" LIMIT 3,7",
 		function(err, rows, fields) {
 			if (err) {
 					console.log(err);
@@ -201,7 +201,7 @@ app.get("/Q4", function(req, res) {
 app.get("/Q5", function(req, res) {
 	var id = req.query.id;
 
-	connection.query("SELECT * FROM ToDoItem WHERE ToDoItem.ParentToDo=\"" + id + "\"",
+	connection.query("SELECT Id, Title, Text FROM ToDoItem WHERE ToDoItem.ParentToDo=\"" + id + "\"",
 		function(err, rows, fields) {
 			if (err) {
 					console.log(err);
@@ -245,37 +245,80 @@ app.get("/Q7", function(req, res) {
 });
 
 app.get("/Q8", function(req, res) {
-	connection.query("",
+	connection.query("SELECT Tag.Id, COUNT(case when Completed=1 then 1 end) AS completed, COUNT(case when Completed=0 then 1 end) AS pending"
+		+ " FROM ToDoItem JOIN ItemTag ON ToDoItem.Id=ItemTag.ToDoId"
+		+ " JOIN Tag ON ItemTag.TagId=Tag.Id"
+		+ " GROUP BY Tag.Id",
 		function(err, rows, fields) {
-
+			if (err) {
+					console.log(err);
+			}
+			else {
+				res.json({'rows' : JSON.stringify(rows)});
+			}
 		});
 });
 
 app.get("/Q9", function(req, res) {
-	connection.query("",
+	connection.query("SELECT WEEK(ToDoItem.CompletionDate) as week, COUNT(*) as completed"
+		+ " FROM ToDoItem"
+		+ " WHERE Completed=1"
+		+ " GROUP BY week;",
 		function(err, rows, fields) {
-
+			if (err) {
+					console.log(err);
+			}
+			else {
+				res.json({'rows' : JSON.stringify(rows)});
+			}
 		});
 });
 
 app.get("/Q10", function(req, res) {
 	connection.query("",
 		function(err, rows, fields) {
-
+			if (err) {
+					console.log(err);
+			}
+			else {
+				res.json({'rows' : JSON.stringify(rows)});
+			}
 		});
 });
 
 app.get("/Q11", function(req, res) {
 	connection.query("",
 		function(err, rows, fields) {
-
+			if (err) {
+					console.log(err);
+			}
+			else {
+				res.json({'rows' : JSON.stringify(rows)});
+			}
 		});
 });
 
 app.get("/Q12", function(req, res) {
 	connection.query("",
 		function(err, rows, fields) {
+			if (err) {
+					console.log(err);
+			}
+			else {
+				res.json({'rows' : JSON.stringify(rows)});
+			}
+		});
+});
 
+app.get("/Q13", function(req, res) {
+	connection.query("",
+		function(err, rows, fields) {
+			if (err) {
+					console.log(err);
+			}
+			else {
+				res.json({'rows' : JSON.stringify(rows)});
+			}
 		});
 });
 
