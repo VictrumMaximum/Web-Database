@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	for(var i = 1; i <= 9; i++) {
+	for(var i = 1; i <= 11; i++) {
 		getQuery(i);
 	}
 });
@@ -24,6 +24,7 @@ function getQuery(id) {
 		});
 }
 
+// returns the table to contain this query's result.
 function getTable(id) {
 	var div = document.getElementById('Q' + id);
 	if(div.children.length > 1) {
@@ -34,6 +35,7 @@ function getTable(id) {
 	return div.children[0];
 }
 
+// returns the value of the select block for this query.
 function getValue(id) {
 	return document.getElementById('Q' + id).children[0].value;
 }

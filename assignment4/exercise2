@@ -10,7 +10,12 @@
 	FROM ToDoItems
 	LIMIT <OFFSET>,<COUNT>
 
-4. 
+4.	SELECT *
+	FROM ToDoItem tdi
+    WHERE DATE(tdi.CreationDate) BETWEEN <date> AND <date>
+		AND tdi.Priority = <int>
+        AND tdi.Completed = <0 or 1>
+	LIMIT <OFFSET>,<COUNT>;
 
 5.	SELECT *
 	FROM ToDoItem

@@ -143,7 +143,7 @@ app.get("/dashboard", function(req, res) {
 app.get("/Q1", function(req, res) {
 	var id = req.query.id;
 
-	connection.query("SELECT Id, Name, IsPublic FROM ToDoList WHERE ToDoList.Owner=\"" + id + "\"",
+	connection.query("SELECT Id, Name, IsPublic FROM ToDoList WHERE ToDoList.Owner=" + id,
 		function(err, rows, fields) {
 			if (err) {
 					console.log(err);
@@ -157,7 +157,7 @@ app.get("/Q1", function(req, res) {
 app.get("/Q2", function(req, res) {
 	var id = req.query.id;
 
-	connection.query("SELECT Id, Title, Text FROM ToDoItem WHERE ToDoItem.ToDoListID=\"" + id + "\"",
+	connection.query("SELECT Id, Title, Text FROM ToDoItem WHERE ToDoItem.ToDoListID=" + id,
 		function(err, rows, fields) {
 			if (err) {
 					console.log(err);
@@ -171,7 +171,7 @@ app.get("/Q2", function(req, res) {
 app.get("/Q3", function(req, res) {
 	var id = req.query.id;
 
-	connection.query("SELECT Id, Title, Text FROM ToDoItem WHERE ToDoItem.ToDoListID=\"" + id + "\" LIMIT 3,7",
+	connection.query("SELECT Id, Title, Text FROM ToDoItem WHERE ToDoItem.ToDoListID=" + id + " LIMIT 3,7",
 		function(err, rows, fields) {
 			if (err) {
 					console.log(err);
@@ -184,7 +184,20 @@ app.get("/Q3", function(req, res) {
 
 app.get("/Q4", function(req, res) {
 	/*
-	connection.query("",
+	var id = req.query.id;
+	var priority = req.query.priority;
+	var d1 = req.query.d1;
+	var d2 = req.query.d2;
+	var comp = req.query.comp;
+	*/
+	var priority = 1;
+
+	connection.query("SELECT Id, Title, Text"
+		+ " FROM ToDoItem tdi"
+    	+ " WHERE DATE(tdi.CreationDate) BETWEEN '2000-01-01' AND '2020-01-01'"
+		+ " AND tdi.Priority = 1"// + priority
+        + " AND tdi.Completed = 1"
+		+ " LIMIT 0, 10",
 		function(err, rows, fields) {
 			if (err) {
 					console.log(err);
@@ -193,15 +206,14 @@ app.get("/Q4", function(req, res) {
 				res.json({'rows' : JSON.stringify(rows)});
 			}
 		});
-		*/
-		res.json({'rows' : JSON.stringify({'todo' : 'todo'})});
+		//res.json({'rows' : JSON.stringify({'todo' : 'todo'})});
 });
 
 
 app.get("/Q5", function(req, res) {
 	var id = req.query.id;
 
-	connection.query("SELECT Id, Title, Text FROM ToDoItem WHERE ToDoItem.ParentToDo=\"" + id + "\"",
+	connection.query("SELECT Id, Title, Text FROM ToDoItem WHERE ToDoItem.ParentToDo=" + id,
 		function(err, rows, fields) {
 			if (err) {
 					console.log(err);
@@ -215,7 +227,7 @@ app.get("/Q5", function(req, res) {
 app.get("/Q6", function(req, res) {
 	var id = req.query.id;
 
-	connection.query("SELECT Text FROM ItemTag join Tag ON ItemTag.TagId=Tag.Id WHERE ItemTag.ToDoId=\"" + id + "\"",
+	connection.query("SELECT Text FROM ItemTag join Tag ON ItemTag.TagId=Tag.Id WHERE ItemTag.ToDoId=" + id,
 		function(err, rows, fields) {
 			if (err) {
 					console.log(err);
@@ -233,7 +245,7 @@ app.get("/Q7", function(req, res) {
 		+ " FROM Tag t join ItemTag it on t.Id=it.TagId"
 		+ " JOIN ToDoItem tdi ON tdi.Id=it.ToDoId"
 		+ " JOIN ToDoList list ON tdi.ToDoListId=list.Id"
-		+ " WHERE t.Id=\"" + id + "\"",
+		+ " WHERE t.Id=" + id,
 		function(err, rows, fields) {
 			if (err) {
 					console.log(err);
@@ -275,6 +287,7 @@ app.get("/Q9", function(req, res) {
 });
 
 app.get("/Q10", function(req, res) {
+	/*
 	connection.query("",
 		function(err, rows, fields) {
 			if (err) {
@@ -284,10 +297,15 @@ app.get("/Q10", function(req, res) {
 				res.json({'rows' : JSON.stringify(rows)});
 			}
 		});
+		*/
+		res.json({'rows' : JSON.stringify({'todo' : 'todo'})});
 });
 
 app.get("/Q11", function(req, res) {
-	connection.query("",
+	connection.query("SELECT it1.TagId as t1, it2.TagId as t2, COUNT(*) AS count"
+		+ " FROM ItemTag it1 JOIN ItemTag it2 ON it1.ToDoId = it2.ToDoId"
+		+ " WHERE it1.TagId < it2.TagId"
+		+ " GROUP BY it1.TagId, it2.TagId;",
 		function(err, rows, fields) {
 			if (err) {
 					console.log(err);
