@@ -229,13 +229,18 @@ app.get("/Q6", function(req, res) {
 app.get("/Q7", function(req, res) {
 	var id = req.query.id;
 
-	connection.query("SELECT distinct Name"
-		+ " FROM Tag join ItemTag on Tag.Id=ItemTag.TagId"
-		+ " JOIN ToDoItem ON ToDoItem.Id=ItemTag.ToDoId"
-		+ " JOIN ToDoList ON ToDoItem.ToDoListId=ToDoList.Id"
-		+ " WHERE Tag.Id=\"" + id + "\"",
+	connection.query("SELECT distinct list.Id, Name"
+		+ " FROM Tag t join ItemTag it on t.Id=it.TagId"
+		+ " JOIN ToDoItem tdi ON tdi.Id=it.ToDoId"
+		+ " JOIN ToDoList list ON tdi.ToDoListId=list.Id"
+		+ " WHERE t.Id=\"" + id + "\"",
 		function(err, rows, fields) {
-
+			if (err) {
+					console.log(err);
+			}
+			else {
+				res.json({'rows' : JSON.stringify(rows)});
+			}
 		});
 });
 

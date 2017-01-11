@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	for(var i = 1; i <= 6; i++) {
+	for(var i = 1; i <= 7; i++) {
 		getQuery(i);
 	}
 });
@@ -16,6 +16,7 @@ function getQuery(id) {
 			data: {"id" : value},
 			success: function(data) {
 				rows = JSON.parse(data.rows);
+				console.log('query ' + id);
 				console.log(rows);
 
 				addToTable(id, rows);
@@ -26,7 +27,7 @@ function getQuery(id) {
 function getTable(id) {
 	var div = document.getElementById('Q' + id);
 	var select = div.children[0];
-	select.onchange = function() {getQ6()};
+	select.onchange = function() {getQuery(id)};
 	var table = div.children[1];
 
 	return table;
@@ -36,7 +37,7 @@ function getValue(id) {
 	return document.getElementById('Q' + id).children[0].value;
 }
 
-function addToTable(id, rows, table) {
+function addToTable(id, rows) {
 	var table = getTable(id);
 	var new_tbody = document.createElement('tbody');
 

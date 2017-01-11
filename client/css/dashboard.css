@@ -8,3 +8,7 @@ tbody {
 	border-collapse: separate;
     border-spacing: 6px; 
 }
+
+div {
+	margin: 2em;
+}
