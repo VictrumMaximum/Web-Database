@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	for(var i = 1; i <= 11; i++) {
+	for(var i = 1; i <= 12; i++) {
 		getQuery(i);
 	}
 });

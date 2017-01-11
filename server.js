@@ -315,7 +315,15 @@ app.get("/Q11", function(req, res) {
 });
 
 app.get("/Q12", function(req, res) {
-	connection.query("",
+	var id = req.query.id;
+
+	connection.query("SELECT AVG(time)"
+		+ " FROM"
+		+ " (SELECT (tdi.completiondate-tdi.creationdate) as time"
+			+ " FROM ToDoItem tdi"
+			+ " WHERE tdi.ToDoListId = " + id + " AND tdi.completiondate IS NOT NULL AND tdi.CreationDate IS NOT NULL"
+			+ " AND tdi.completiondate > tdi.creationdate)"
+		+ " as times",
 		function(err, rows, fields) {
 			if (err) {
 					console.log(err);
