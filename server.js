@@ -183,20 +183,18 @@ app.get("/Q3", function(req, res) {
 });
 
 app.get("/Q4", function(req, res) {
-	/*
 	var id = req.query.id;
-	var priority = req.query.priority;
-	var d1 = req.query.d1;
-	var d2 = req.query.d2;
-	var comp = req.query.comp;
-	*/
 	var priority = 1;
+	var d1 = '2000-01-01';
+	var d2 = '2020-01-01';
+	var completed = 1;
 
 	connection.query("SELECT Id, Title, Text"
 		+ " FROM ToDoItem tdi"
-    	+ " WHERE DATE(tdi.CreationDate) BETWEEN '2000-01-01' AND '2020-01-01'"
-		+ " AND tdi.Priority = 1"// + priority
-        + " AND tdi.Completed = 1"
+    	+ " WHERE tdi.ToDoListID =" + id
+    	+ " AND DATE(tdi.CreationDate) BETWEEN \"" + d1 + "\" AND \"" + d2 + "\""
+		+ " AND tdi.Priority =" + priority
+        + " AND tdi.Completed =" + completed
 		+ " LIMIT 0, 10",
 		function(err, rows, fields) {
 			if (err) {
